@@ -1,0 +1,75 @@
+{
+  "mode": "simulated-only",
+  "platform": "vendor-neutral; no live platform integration",
+  "scenarios": [
+    {
+      "scenario": "authorized_delegation",
+      "passed": true,
+      "decision": {
+        "principal": "synthetic-user",
+        "chain": [
+          "parent",
+          "child"
+        ],
+        "action": "read",
+        "resource": "approved-catalog",
+        "decision": "ALLOW",
+        "reason": "authorized",
+        "evaluated_at": "2026-11-06T12:00:00+00:00",
+        "evidence_signature": "a77f213d37ea740fdb18ec73b89b591d881504602a6514ec5df6c4b6e9ed1c50"
+      }
+    },
+    {
+      "scenario": "out_of_scope_action",
+      "passed": true,
+      "decision": {
+        "principal": "synthetic-user",
+        "chain": [
+          "parent",
+          "child"
+        ],
+        "action": "purchase",
+        "resource": "approved-catalog",
+        "decision": "DENY",
+        "reason": "action_out_of_scope",
+        "evaluated_at": "2026-11-06T12:00:00+00:00",
+        "evidence_signature": "6a788b347ba7371a902b0e2051c4510abf8244b2c89127582bc723eaa803b930"
+      }
+    },
+    {
+      "scenario": "privilege_expansion",
+      "passed": true,
+      "decision": {
+        "principal": "synthetic-user",
+        "chain": [
+          "parent",
+          "child"
+        ],
+        "action": "read",
+        "resource": "approved-catalog",
+        "decision": "DENY",
+        "reason": "delegation_expands_authority",
+        "evaluated_at": "2026-11-06T12:00:00+00:00",
+        "evidence_signature": "fd2fc360d92e1d4e10a53c51b1f94619b726ec1e9ac85a86762b3b992fef39ae"
+      }
+    },
+    {
+      "scenario": "revoked_authority",
+      "passed": true,
+      "decision": {
+        "principal": "synthetic-user",
+        "chain": [
+          "parent",
+          "child"
+        ],
+        "action": "read",
+        "resource": "approved-catalog",
+        "decision": "DENY",
+        "reason": "revoked",
+        "evaluated_at": "2026-11-06T12:00:00+00:00",
+        "evidence_signature": "900897c0e2847d60436958518c27deeb5e5d812e43034a23a68f799bfcc11d8f"
+      }
+    }
+  ],
+  "passed": true
+}
