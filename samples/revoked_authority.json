@@ -1,0 +1,17 @@
+{
+  "scenario": "revoked_authority",
+  "passed": true,
+  "decision": {
+    "principal": "synthetic-user",
+    "chain": [
+      "parent",
+      "child"
+    ],
+    "action": "read",
+    "resource": "approved-catalog",
+    "decision": "DENY",
+    "reason": "revoked",
+    "evaluated_at": "2026-11-06T12:00:00+00:00",
+    "evidence_signature": "900897c0e2847d60436958518c27deeb5e5d812e43034a23a68f799bfcc11d8f"
+  }
+}
