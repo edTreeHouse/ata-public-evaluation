@@ -1,0 +1,16 @@
+{
+  "schema_version": "ata-public-evaluation-v1",
+  "artifact_type": "captured-simulation-output",
+  "synthetic_only": true,
+  "scenario_count": 4,
+  "source": "standalone ATA illustrative delegation simulation; no live integration",
+  "source_commit": "6331b2ef534a28d7947661dfb584a9716697a1cd",
+  "files": [
+    "samples/ata-delegation-review.json",
+    "samples/authorized_delegation.json",
+    "samples/out_of_scope_action.json",
+    "samples/privilege_expansion.json",
+    "samples/revoked_authority.json"
+  ],
+  "integrity_note": "Versioned Git commits record changes; no independent execution or publisher attestation is asserted."
+}
