@@ -1,0 +1,17 @@
+{
+  "scenario": "out_of_scope_action",
+  "passed": true,
+  "decision": {
+    "principal": "synthetic-user",
+    "chain": [
+      "parent",
+      "child"
+    ],
+    "action": "purchase",
+    "resource": "approved-catalog",
+    "decision": "DENY",
+    "reason": "action_out_of_scope",
+    "evaluated_at": "2026-11-06T12:00:00+00:00",
+    "evidence_signature": "6a788b347ba7371a902b0e2051c4510abf8244b2c89127582bc723eaa803b930"
+  }
+}
