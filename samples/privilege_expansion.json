@@ -1,0 +1,17 @@
+{
+  "scenario": "privilege_expansion",
+  "passed": true,
+  "decision": {
+    "principal": "synthetic-user",
+    "chain": [
+      "parent",
+      "child"
+    ],
+    "action": "read",
+    "resource": "approved-catalog",
+    "decision": "DENY",
+    "reason": "delegation_expands_authority",
+    "evaluated_at": "2026-11-06T12:00:00+00:00",
+    "evidence_signature": "fd2fc360d92e1d4e10a53c51b1f94619b726ec1e9ac85a86762b3b992fef39ae"
+  }
+}
