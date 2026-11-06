@@ -1,0 +1,17 @@
+{
+  "scenario": "authorized_delegation",
+  "passed": true,
+  "decision": {
+    "principal": "synthetic-user",
+    "chain": [
+      "parent",
+      "child"
+    ],
+    "action": "read",
+    "resource": "approved-catalog",
+    "decision": "ALLOW",
+    "reason": "authorized",
+    "evaluated_at": "2026-11-06T12:00:00+00:00",
+    "evidence_signature": "a77f213d37ea740fdb18ec73b89b591d881504602a6514ec5df6c4b6e9ed1c50"
+  }
+}
