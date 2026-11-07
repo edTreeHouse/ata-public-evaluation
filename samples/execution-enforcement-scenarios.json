@@ -1,0 +1,59 @@
+{
+  "schema_version": "ata-execution-enforcement-scenarios-v1",
+  "artifact_type": "illustrative-test-expectations-not-captured-execution",
+  "synthetic_only": true,
+  "provenance": {
+    "private_repository": "edTreeHouse/agent-transaction-assurance",
+    "merged_pull_requests": [
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "evidence_level": "test case specifications with CI checks passed; not independently replayed or attested",
+    "source_access": "private; public visitors cannot reproduce from this package",
+    "captured_run_log_included": false
+  },
+  "scenarios": [
+    {
+      "id": "execution-authorized",
+      "description": "Valid delegated write accepted by synthetic resource",
+      "expected_policy_decision": "ALLOW",
+      "expected_resource_http_status": 200,
+      "expected_resource_mutation": true,
+      "source_test": "tests/test_ata_gated_permit.py::GatedPermitTests::test_valid_chain_issues_short_lived_permit_and_executes",
+      "limitations": "Test signing key and asserted workload identity; no production enforcement"
+    },
+    {
+      "id": "confused-deputy-scope",
+      "description": "Narrow grant cannot mint a permit for broader resource",
+      "expected_policy_decision": "DENY",
+      "expected_resource_http_status": null,
+      "expected_resource_mutation": false,
+      "source_test": "tests/test_ata_gated_permit.py::GatedPermitTests::test_confused_deputy_cannot_mint_for_broader_resource",
+      "limitations": "No authenticated standing provider credential was exercised"
+    },
+    {
+      "id": "execution-replay",
+      "description": "Second submission of same signed operation is rejected at synthetic resource",
+      "expected_policy_decision": "ALLOW_FOR_INITIAL_REQUEST",
+      "expected_resource_http_status_sequence": [
+        200,
+        409
+      ],
+      "expected_resource_mutation_count": 1,
+      "source_test": "tests/test_ata_protected_resource.py::ProtectedResourceTests::test_replay_denied_at_resource",
+      "limitations": "Local single-process test, not a distributed idempotency guarantee"
+    },
+    {
+      "id": "revocation-before-commit",
+      "description": "Parent grant revoked after permit issuance but before local fenced resource mutation",
+      "expected_policy_decision": "DENY_AT_COMMIT",
+      "expected_resource_status": 403,
+      "expected_resource_mutation": false,
+      "source_test": "tests/test_ata_commit_fenced_resource.py::CommitFenceTests::test_parent_revoked_after_permit_issued_denied_at_commit",
+      "limitations": "Shared SQLite transaction; not integrated into isolated HTTP resource or external provider"
+    }
+  ]
+}
