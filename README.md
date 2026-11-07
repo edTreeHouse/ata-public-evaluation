@@ -1,43 +1,51 @@
-# ATA Public Evaluation
+# Agent Transaction Assurance (ATA)
 
-**Agent Transaction Assurance (ATA)** — public, vendor-neutral, **simulated** evidence examples for delegated authority across multi-agent workflows.
+**Verifiable authority across multi-agent systems.**
 
-> This repository contains synthetic evaluation artifacts only. It is not a production authorization service, a live agent-platform integration, or independently verified security attestation. The private ATA engineering implementation is **not** published here.
+As AI agents collaborate and act on behalf of people and organizations, a critical question emerges: **How do we know that a downstream action is still authorized by the person who initiated it?**
 
-## Four scenarios
+A service may have the technical ability to complete a transaction without having the authority to do so on a particular user's behalf. When work passes from one agent to another, that distinction becomes harder to preserve.
 
-| Scenario | Expected decision | Observed in captured sample |
-| --- | --- | --- |
-| Authorized delegation | ALLOW | ALLOW |
-| Out-of-scope action | DENY | DENY |
-| Privilege expansion | DENY | DENY |
-| Revoked originating authority | DENY | DENY |
+ATA explores an approach to connecting **originating authority, delegated permissions, and the actions ultimately performed**—so that authority is not silently expanded, reused, or treated as valid after it has been withdrawn.
 
-- [Complete JSON report](samples/ata-delegation-review.json)
-- [Authorized delegation](samples/authorized_delegation.json)
-- [Out-of-scope action](samples/out_of_scope_action.json)
-- [Privilege expansion](samples/privilege_expansion.json)
-- [Revoked authority](samples/revoked_authority.json)
-- [Evaluation methodology and limitations](EVALUATION.md)
-- [Artifact manifest](manifest.json)
+## From intention to action
 
+ATA is designed around four principles:
 
-## Execution-enforcement development scenarios (new)
+- **Authority originates with the user.** An agent's access to a tool is not, by itself, permission to use it for every purpose.
+- **Delegation preserves boundaries.** Each downstream agent should act only within the authority it received, without expanding its scope.
+- **Authorization matters at execution.** The authority behind a request should still be valid when an action is carried out—not merely when it was first proposed.
+- **Decisions should be explainable.** A trustworthy system should make it possible to examine what was authorized, what was requested, and why an action proceeded or was denied.
 
-The [four additional JSON scenarios](samples/execution-enforcement-scenarios.json) summarize **expected results from named private-repository tests**, not captured execution logs. They cover authorized synthetic execution, a denied out-of-scope confused-deputy request, replay rejection, and revocation before a local atomic commit. The private engineering PRs [#116](https://github.com/edTreeHouse/agent-transaction-assurance/pull/116) through [#120](https://github.com/edTreeHouse/agent-transaction-assurance/pull/120) were merged after CI checks passed.
+## Explore the scenarios
 
-**Evidence boundary:** These are *test-case descriptions*, not independently reproducible public runs or third-party attestations. The HTTP protected-resource prototype and commit-time revocation prototype are not yet one isolated deployment; caller identity and signing-key custody remain test-only. The original four captured simulated policy scenarios above remain unchanged.
+The illustrative examples examine two connected questions: **Was the agent authorized?** And **was that authority respected when it acted?**
 
-## What the evidence means
+| Scenario | What it illustrates |
+| --- | --- |
+| Authorized delegation | A downstream agent operates within the user's intended permissions. |
+| Out-of-scope action | Access to a capable service does not authorize an unrelated action. |
+| Privilege expansion | Delegation cannot grant broader authority than the originating permission. |
+| Revoked authority | Permission withdrawn by the originator should no longer authorize an action. |
+| Authorized execution | An action proceeds when its delegated authority remains valid. |
+| Scope violation at execution | A downstream action is refused when it exceeds the user's authorization. |
+| Repeated transaction | One authorized action does not automatically authorize repeating it. |
+| Revocation before execution | An action should not proceed if its authority is withdrawn before it takes effect. |
 
-The JSON files capture the results of a **standalone illustrative simulation**, with synthetic principals and agents, a fixed evaluation time, local revocation state, and a public example HMAC key. The included `evidence_signature` fields are **not independent attestations**; anyone with the example key could regenerate them. They must not be treated as proof of authentic execution.
+Explore the [original illustrative delegation examples](samples/ata-delegation-review.json) and the [additional execution scenarios](samples/execution-enforcement-scenarios.json).
 
-The public package enables **inspection of captured results**, not independent re-execution. The implementation remains private pending an intellectual-property and release-scope decision. Source-controlled artifacts do not establish that the reported execution happened.
+## Why it matters
 
-## Scope and feedback
+In multi-agent systems, identity answers **who or what performed an action**. ATA asks a different question: **Under whose authority, and within which limits, was that action permitted?**
 
-These artifacts invite architectural review of whether downstream agent actions can be constrained by originating authority, with a traceable allow/deny rationale. They do not prove real identity propagation, connector enforcement, distributed revocation, production key custody, or third-party verification.
+That distinction matters wherever agents can interact with business systems, financial workflows, healthcare environments, or other services in which technical access and legitimate authorization are not the same thing.
 
-For further context see [EVALUATION.md](EVALUATION.md). No vendor-specific or real user information is included.
+ATA's objective is to make delegated authority a meaningful part of execution and accountability—not merely a statement recorded after an action has occurred.
+
+## About these examples
+
+These public examples are **synthetic illustrations of ATA's intended behavior**, not evidence of a deployed production authorization service or independent security certification. The original delegation files contain captured simulated decisions; the additional execution files describe expected outcomes associated with private development tests. They are not interchangeable forms of evidence.
+
+For methodology, evidence qualifications, and technical limitations, see the [evaluation guide](EVALUATION.md). The private implementation is not included in this repository.
 
 Copyright © 2026 TreeHouse Consulting Services, LLC. No license is granted for reuse or redistribution beyond rights provided by applicable law.
