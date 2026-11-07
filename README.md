@@ -21,6 +21,13 @@
 - [Evaluation methodology and limitations](EVALUATION.md)
 - [Artifact manifest](manifest.json)
 
+
+## Execution-enforcement development scenarios (new)
+
+The [four additional JSON scenarios](samples/execution-enforcement-scenarios.json) summarize **expected results from named private-repository tests**, not captured execution logs. They cover authorized synthetic execution, a denied out-of-scope confused-deputy request, replay rejection, and revocation before a local atomic commit. The private engineering PRs [#116](https://github.com/edTreeHouse/agent-transaction-assurance/pull/116) through [#120](https://github.com/edTreeHouse/agent-transaction-assurance/pull/120) were merged after CI checks passed.
+
+**Evidence boundary:** These are *test-case descriptions*, not independently reproducible public runs or third-party attestations. The HTTP protected-resource prototype and commit-time revocation prototype are not yet one isolated deployment; caller identity and signing-key custody remain test-only. The original four captured simulated policy scenarios above remain unchanged.
+
 ## What the evidence means
 
 The JSON files capture the results of a **standalone illustrative simulation**, with synthetic principals and agents, a fixed evaluation time, local revocation state, and a public example HMAC key. The included `evidence_signature` fields are **not independent attestations**; anyone with the example key could regenerate them. They must not be treated as proof of authentic execution.
